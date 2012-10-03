@@ -1,1 +1,1 @@
-export PATH=$GH_HOME/homebrew/share/python:$PATH
+export PATH=$BOXEN_HOME/homebrew/share/python:$PATH

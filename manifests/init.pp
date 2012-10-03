@@ -5,8 +5,8 @@ class python {
     ensure => latest
   }
 
-  file { "${github::config::envdir}/python.sh":
+  file { "${boxen::config::envdir}/python.sh":
     source  => 'puppet:///modules/python/python.sh',
-    require => File[$github::config::envdir]
+    require => File[$boxen::config::envdir]
   }
 }
