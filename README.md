@@ -1,4 +1,15 @@
-# Puppet python for Boxen
+# Python Puppet Module for Boxen
 
-FIXME: update me bro
+Requires the following boxen modules:
 
+* `boxen`
+* `homebrew`
+
+## Usage
+
+For now this is lightweight.
+We'll want to add virtualenv support someday.
+
+```puppet
+include python
+```
