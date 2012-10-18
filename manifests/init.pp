@@ -1,4 +1,10 @@
+# Install python from homebrew.
+#
+# Usage:
+#
+#     include python
 class python {
+  require boxen::config
   require xquartz
 
   package { 'python':
@@ -6,7 +12,6 @@ class python {
   }
 
   file { "${boxen::config::envdir}/python.sh":
-    source  => 'puppet:///modules/python/python.sh',
-    require => File[$boxen::config::envdir]
+    source  => 'puppet:///modules/python/python.sh'
   }
 }
