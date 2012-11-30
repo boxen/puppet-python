@@ -10,7 +10,7 @@ class python {
   package {
     'python':
       ensure => latest;
-    ['python-distribute', 'python-pip']
+    ['python-distribute', 'python-pip']:
       require => Package['python'] ;
   }
 
