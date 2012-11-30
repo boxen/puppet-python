@@ -7,8 +7,11 @@ class python {
   require boxen::config
   require xquartz
 
-  package { 'python':
-    ensure => latest
+  package {
+    'python':
+      ensure => latest;
+    ['python-distribute', 'python-pip']
+      require => Package['python'] ;
   }
 
   file { "${boxen::config::envdir}/python.sh":
