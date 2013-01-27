@@ -7,7 +7,7 @@ class python {
   require boxen::config
   require xquartz
 
-  hombrew::formula { 'python':
+  homebrew::formula { 'python':
     before => Package['boxen/brews/python']
   }
 

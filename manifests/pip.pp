@@ -1,6 +1,6 @@
 class python::pip {
 
-  hombrew::formula { 'pip':
+  homebrew::formula { 'pip':
     before => Package['boxen/brews/python-pip']
   }
 

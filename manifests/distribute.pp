@@ -1,6 +1,6 @@
 class python::distribute {
 
-  hombrew::formula { 'distribute':
+  homebrew::formula { 'distribute':
     before => Package['boxen/brews/python-distribute']
   }
 
