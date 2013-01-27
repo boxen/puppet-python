@@ -12,7 +12,7 @@ class python {
   }
 
   package { 'boxen/brews/python':
-    ensure => '2.7.3'
+    ensure => '2.7.3-boxen1'
   }
 
   file { "${boxen::config::envdir}/python.sh":
