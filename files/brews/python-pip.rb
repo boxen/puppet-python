@@ -5,10 +5,6 @@ class PythonPip < Formula
   sha1 '35db84983ef3f66a8a161d320e61d192afc233d9'
   version '1.2.1-boxen1'
 
-  def site_packages_cellar
-    prefix/"Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
-  end
-
   # The HOMEBREW_PREFIX location of site-packages.
   def site_packages
     HOMEBREW_PREFIX/"lib/python2.7/site-packages"

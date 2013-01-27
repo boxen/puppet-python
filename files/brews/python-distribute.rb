@@ -5,10 +5,6 @@ class PythonDistribute < Formula
   sha1 '40dfce237883d1c02817f726128f61614dc686ff'
   version '0.6.30-boxen1'
 
-  def site_packages_cellar
-    prefix/"Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages"
-  end
-
   # The HOMEBREW_PREFIX location of site-packages.
   def site_packages
     HOMEBREW_PREFIX/"lib/python2.7/site-packages"
