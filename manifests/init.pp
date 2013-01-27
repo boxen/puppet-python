@@ -20,4 +20,7 @@ class python {
     source  => 'puppet:///modules/python/python.sh'
   }
 
+  include python::distribute
+  include python::pip
+
 }
