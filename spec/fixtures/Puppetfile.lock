@@ -1,14 +1,26 @@
 GITHUBTARBALL
   remote: boxen/puppet-boxen
   specs:
-    boxen (0.0.26)
+    boxen (0.2.0)
+
+GITHUBTARBALL
+  remote: boxen/puppet-homebrew
+  specs:
+    homebrew (0.2.0)
 
 GITHUBTARBALL
   remote: boxen/puppet-xquartz
   specs:
-    xquartz (0.0.1)
+    xquartz (0.0.2)
+
+GITHUBTARBALL
+  remote: puppetlabs/puppetlabs-stdlib
+  specs:
+    stdlib (3.0.0)
 
 DEPENDENCIES
-  boxen (= 0.0.26)
-  xquartz (= 0.0.1)
+  boxen (= 0.2.0)
+  homebrew (= 0.2.0)
+  stdlib (= 3.0.0)
+  xquartz (= 0.0.2)
 
