@@ -1,15 +1,5 @@
 require 'formula'
 
-class Distribute < Formula
-  url 'http://pypi.python.org/packages/source/d/distribute/distribute-0.6.34.tar.gz'
-  sha1 'b6f9cfbaf3e63833b71009812a613be13e68f5de'
-end
-
-class Pip < Formula
-  url 'http://pypi.python.org/packages/source/p/pip/pip-1.2.1.tar.gz'
-  sha1 '35db84983ef3f66a8a161d320e61d192afc233d9'
-end
-
 class Python < Formula
   homepage 'http://www.python.org'
   url 'http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2'
@@ -50,7 +40,7 @@ class Python < Formula
     HOMEBREW_PREFIX/"lib/python2.7/site-packages"
   end
 
-  # Where distribute/pip will install executable scripts.
+  # Where distribute/pip will later install executable scripts.
   def scripts_folder
     HOMEBREW_PREFIX/"share/python"
   end
@@ -147,15 +137,6 @@ class Python < Formula
       #   This is needed for Python to parse *.pth files.
       site.addsitedir('#{site_packages}')
     EOF
-
-    # Install distribute and pip
-    # It's important to have these installers in our bin, because some users
-    # forget to put #{script_folder} in PATH, then easy_install'ing
-    # into /Library/Python/X.Y/site-packages with /usr/bin/easy_install.
-    mkdir_p scripts_folder unless scripts_folder.exist?
-    setup_args = ["-s", "setup.py", "--no-user-cfg", "install", "--force", "--verbose", "--install-lib=#{site_packages_cellar}", "--install-scripts=#{bin}" ]
-    Distribute.new.brew { system "#{bin}/python", *setup_args }
-    Pip.new.brew { system "#{bin}/python", *setup_args }
 
     # Tell distutils-based installers where to put scripts and python modules
     (prefix/"Frameworks/Python.framework/Versions/2.7/lib/python2.7/distutils/distutils.cfg").write <<-EOF.undent
