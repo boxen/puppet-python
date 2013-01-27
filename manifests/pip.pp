@@ -1,4 +1,5 @@
 class python::pip {
+  require homebrew
 
   homebrew::formula { 'pip':
     before => Package['boxen/brews/python-pip']

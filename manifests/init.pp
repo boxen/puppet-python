@@ -5,6 +5,7 @@
 #     include python
 class python {
   require boxen::config
+  require homebrew
   require xquartz
 
   homebrew::formula { 'python':

@@ -8,6 +8,9 @@ describe 'python pip' do
   end
 
   it do
-    should contain_package('python-pip').with_ensure('1.2.1-boxen1')
+    should include_class('homebrew')
+
+    should contain_homebrew__formula('pip')
+    should contain_package('boxen/brews/python-pip').with_ensure('1.2.1-boxen1')
   end
 end
