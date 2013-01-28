@@ -9,6 +9,7 @@ describe 'python' do
 
   it do
     should include_class('homebrew')
+    should include_class('xquartz')
     should include_class('boxen::config')
     should include_class('python::distribute')
     should include_class('python::pip')
