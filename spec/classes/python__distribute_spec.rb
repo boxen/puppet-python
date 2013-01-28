@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'python distribute' do
+describe 'python::distribute' do
   let(:facts) do
     {
       :boxen_home => '/opt/boxen'
@@ -8,7 +8,12 @@ describe 'python distribute' do
   end
 
   it do
-    should contain_homebrew__formula('python-distribute')
-    should contain_package('boxen/brews/python-distribute').with_ensure('0.6.30-boxen1')
+    should contain_homebrew__formula('distribute').with(
+      :before => 'Package[boxen/brews/python-distribute]',
+    )
+    should contain_package('boxen/brews/python-distribute').with(
+      :ensure  => '0.6.30-boxen1',
+      :require => 'Package[boxen/brews/python]',
+    )
   end
 end
