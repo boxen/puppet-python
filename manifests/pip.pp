@@ -1,6 +1,8 @@
 class python::pip {
+  include homebrew
 
   homebrew::formula { 'pip':
+    source => 'puppet:///modules/python/brews/python-pip.rb',
     before => Package['boxen/brews/python-pip']
   }
 
