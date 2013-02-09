@@ -1,7 +1,7 @@
 class python::distribute {
   include homebrew
 
-  homebrew::formula { 'distribute':
+  homebrew::formula { 'python-distribute':
     source => 'puppet:///modules/python/brews/python-distribute.rb',
     before => Package['boxen/brews/python-distribute']
   }
