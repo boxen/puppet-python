@@ -4,17 +4,23 @@
 #
 #     include python
 class python {
-  require boxen::config
-  require xquartz
+  include boxen::config
+  include homebrew
+  include xquartz
 
-  package {
-    'python':
-      ensure => latest;
-    ['python-distribute', 'python-pip']:
-      require => Package['python'] ;
+  homebrew::formula { 'python':
+    before => Package['boxen/brews/python']
+  }
+
+  package { 'boxen/brews/python':
+    ensure  => '2.7.3-boxen1',
+    require => Class['xquartz']
   }
 
   file { "${boxen::config::envdir}/python.sh":
     source  => 'puppet:///modules/python/python.sh'
   }
+
+  include python::distribute
+  include python::pip
 }
