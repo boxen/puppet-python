@@ -8,7 +8,7 @@ describe 'python::distribute' do
   end
 
   it do
-    should contain_homebrew__formula('distribute').with(
+    should contain_homebrew__formula('python-distribute').with(
       :before => 'Package[boxen/brews/python-distribute]',
     )
     should contain_package('boxen/brews/python-distribute').with(

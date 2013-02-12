@@ -8,7 +8,7 @@ describe 'python::pip' do
   end
 
   it do
-    should contain_homebrew__formula('pip').with(
+    should contain_homebrew__formula('python-pip').with(
       :before => 'Package[boxen/brews/python-pip]',
     )
     should contain_package('boxen/brews/python-pip').with(
