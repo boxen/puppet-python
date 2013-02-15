@@ -109,10 +109,6 @@ class Python < Formula
     # so that user-installed Python software survives minor updates, such
     # as going from 2.7.0 to 2.7.1:
 
-    # Remove the site-packages that Python created in its Cellar.
-    site_packages_cellar.rmtree
-    # Create a site-packages in HOMEBREW_PREFIX/lib/python/site-packages
-    site_packages.mkpath
     # Symlink the cellar into the prefix site-packages.
     ln_s site_packages_cellar, site_packages
 
