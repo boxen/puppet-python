@@ -11,8 +11,6 @@ describe 'python' do
     should include_class('homebrew')
     should include_class('xquartz')
     should include_class('boxen::config')
-    should include_class('python::distribute')
-    should include_class('python::pip')
 
     should contain_homebrew__formula('python').with(
       :before => 'Package[boxen/brews/python]',
