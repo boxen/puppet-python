@@ -113,8 +113,8 @@ class Python < Formula
     site_packages_cellar.rmtree
     # Create a site-packages in HOMEBREW_PREFIX/lib/python/site-packages
     site_packages.mkpath
-    # Symlink the prefix site-packages into the cellar.
-    ln_s site_packages, site_packages_cellar
+    # Symlink the cellar into the prefix site-packages.
+    ln_s site_packages_cellar, site_packages
 
     # Teach python not to use things from /System
     # and tell it about the correct site-package dir because we moved it
