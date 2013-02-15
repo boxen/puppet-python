@@ -149,6 +149,15 @@ class Python < Formula
       site.addsitedir('#{site_packages}')
     EOF
 
+    # Install distribute and pip
+    # It's important to have these installers in our bin, because some users
+    # forget to put #{script_folder} in PATH, then easy_install'ing
+    # into /Library/Python/X.Y/site-packages with /usr/bin/easy_install.
+    mkdir_p scripts_folder unless scripts_folder.exist?
+    setup_args = ["-s", "setup.py", "--no-user-cfg", "install", "--force", "--verbose", "--install-lib=#{site_packages_cellar}", "--install-scripts=#{bin}" ]
+    Distribute.new.brew { system "#{bin}/python", *setup_args }
+    Pip.new.brew { system "#{bin}/python", *setup_args }
+
     # Tell distutils-based installers where to put scripts and python modules
     (prefix/"Frameworks/Python.framework/Versions/2.7/lib/python2.7/distutils/distutils.cfg").write <<-EOF.undent
       [install]
