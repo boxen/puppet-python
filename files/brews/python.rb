@@ -126,7 +126,7 @@ class Python < Formula
       import sys
       import site
 
-      # Only do fix 1 and 2, if the currently run python is a brewed one.
+      # Only fix if the currently run python is a brewed one.
       if sys.executable.startswith('#{HOMEBREW_PREFIX}'):
           # Fix 1)
           #   A setuptools.pth and/or easy-install.pth sitting either in
@@ -139,11 +139,7 @@ class Python < Formula
           #   See: https://github.com/mxcl/homebrew/issues/14712
           sys.path = [ p for p in sys.path if not p.startswith('/System') ]
 
-          # Fix 2)
-          #   Remove brewed Python's hard-coded site-packages
-          sys.path.remove('#{site_packages_cellar}')
-
-      # Fix 3)
+      # Fix 2)
       #   For all Pythons: Tell about homebrew's site-packages location.
       #   This is needed for Python to parse *.pth files.
       site.addsitedir('#{site_packages}')
