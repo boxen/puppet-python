@@ -21,8 +21,8 @@ class python {
   }
 
   file { "${homebrew::config::installdir}/lib/python2.7/site-packages":
-    force   => true,
     ensure  => link,
+    force   => true,
     target  => "${homebrew::config::installdir}/Cellar/python/${version}/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages",
     require => Package['boxen/brews/python']
   }
