@@ -1,5 +1,15 @@
 require 'formula'
 
+class Distribute < Formula
+  url 'http://pypi.python.org/packages/source/d/distribute/distribute-0.6.34.tar.gz'
+  sha1 'b6f9cfbaf3e63833b71009812a613be13e68f5de'
+end
+
+class Pip < Formula
+  url 'http://pypi.python.org/packages/source/p/pip/pip-1.2.1.tar.gz'
+  sha1 '35db84983ef3f66a8a161d320e61d192afc233d9'
+end
+
 class Python < Formula
   homepage 'http://www.python.org'
   url 'http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2'
