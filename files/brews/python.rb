@@ -51,7 +51,7 @@ class Python < Formula
     HOMEBREW_PREFIX/"lib/python2.7/site-packages"
   end
 
-  # Where distribute/pip will later install executable scripts.
+  # Where distribute/pip will install executable scripts.
   def scripts_folder
     HOMEBREW_PREFIX/"share/python"
   end
