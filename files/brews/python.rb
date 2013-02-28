@@ -1,10 +1,20 @@
 require 'formula'
 
+class Distribute < Formula
+  url 'http://pypi.python.org/packages/source/d/distribute/distribute-0.6.34.tar.gz'
+  sha1 'b6f9cfbaf3e63833b71009812a613be13e68f5de'
+end
+
+class Pip < Formula
+  url 'http://pypi.python.org/packages/source/p/pip/pip-1.2.1.tar.gz'
+  sha1 '35db84983ef3f66a8a161d320e61d192afc233d9'
+end
+
 class Python < Formula
   homepage 'http://www.python.org'
   url 'http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2'
   sha1 '842c4e2aff3f016feea3c6e992c7fa96e49c9aa0'
-  version '2.7.3-boxen1'
+  version '2.7.3-boxen2'
 
   option :universal
   option 'quicktest', 'Run `make quicktest` after the build'
@@ -41,7 +51,7 @@ class Python < Formula
     HOMEBREW_PREFIX/"lib/python2.7/site-packages"
   end
 
-  # Where distribute/pip will later install executable scripts.
+  # Where distribute/pip will install executable scripts.
   def scripts_folder
     HOMEBREW_PREFIX/"share/python"
   end
@@ -99,12 +109,8 @@ class Python < Formula
     # so that user-installed Python software survives minor updates, such
     # as going from 2.7.0 to 2.7.1:
 
-    # Remove the site-packages that Python created in its Cellar.
-    site_packages_cellar.rmtree
-    # Create a site-packages in HOMEBREW_PREFIX/lib/python/site-packages
-    site_packages.mkpath
-    # Symlink the prefix site-packages into the cellar.
-    ln_s site_packages, site_packages_cellar
+    # Symlink the cellar into the prefix site-packages.
+    ln_s site_packages_cellar, site_packages
 
     # Teach python not to use things from /System
     # and tell it about the correct site-package dir because we moved it
@@ -116,7 +122,7 @@ class Python < Formula
       import sys
       import site
 
-      # Only do fix 1 and 2, if the currently run python is a brewed one.
+      # Only fix if the currently run python is a brewed one.
       if sys.executable.startswith('#{HOMEBREW_PREFIX}'):
           # Fix 1)
           #   A setuptools.pth and/or easy-install.pth sitting either in
@@ -129,15 +135,20 @@ class Python < Formula
           #   See: https://github.com/mxcl/homebrew/issues/14712
           sys.path = [ p for p in sys.path if not p.startswith('/System') ]
 
-          # Fix 2)
-          #   Remove brewed Python's hard-coded site-packages
-          sys.path.remove('#{site_packages_cellar}')
-
-      # Fix 3)
+      # Fix 2)
       #   For all Pythons: Tell about homebrew's site-packages location.
       #   This is needed for Python to parse *.pth files.
       site.addsitedir('#{site_packages}')
     EOF
+
+    # Install distribute and pip
+    # It's important to have these installers in our bin, because some users
+    # forget to put #{script_folder} in PATH, then easy_install'ing
+    # into /Library/Python/X.Y/site-packages with /usr/bin/easy_install.
+    mkdir_p scripts_folder unless scripts_folder.exist?
+    setup_args = ["-s", "setup.py", "--no-user-cfg", "install", "--force", "--verbose", "--install-lib=#{site_packages_cellar}", "--install-scripts=#{bin}" ]
+    Distribute.new.brew { system "#{bin}/python", *setup_args }
+    Pip.new.brew { system "#{bin}/python", *setup_args }
 
     # Tell distutils-based installers where to put scripts and python modules
     (prefix/"Frameworks/Python.framework/Versions/2.7/lib/python2.7/distutils/distutils.cfg").write <<-EOF.undent
