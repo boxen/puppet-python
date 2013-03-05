@@ -9,7 +9,7 @@ class python {
   include homebrew::config
   include xquartz
 
-  $version = '2.7.3-boxen1'
+  $version = '2.7.3-boxen2'
 
   homebrew::formula { 'python':
     before => Package['boxen/brews/python']
@@ -20,29 +20,14 @@ class python {
     require => Class['xquartz']
   }
 
-  file {
-    [
-      "${homebrew::config::installdir}/lib/python2.7",
-      "${homebrew::config::installdir}/lib/python2.7/site-packages"
-    ]:
-      ensure  => 'directory',
-      require => Package['boxen/brews/python'] ;
-  }
-
-  file { "${homebrew::config::installdir}/Cellar/python/${version}/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages":
-    force   => true,
+  file { "${homebrew::config::installdir}/lib/python2.7/site-packages":
     ensure  => link,
-    target  => "${homebrew::config::installdir}/lib/python2.7/site-packages",
-    require => [
-      Package['boxen/brews/python'],
-      File["${homebrew::config::installdir}/lib/python2.7/site-packages"]
-    ]
+    force   => true,
+    target  => "${homebrew::config::installdir}/Cellar/python/${version}/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages",
+    require => Package['boxen/brews/python']
   }
 
   file { "${boxen::config::envdir}/python.sh":
     source  => 'puppet:///modules/python/python.sh'
   }
-
-  include python::distribute
-  include python::pip
 }
