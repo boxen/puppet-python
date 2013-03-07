@@ -20,11 +20,14 @@ class python {
     require => Class['xquartz']
   }
 
-  file { "${homebrew::config::installdir}/lib/python2.7/site-packages":
-    ensure  => link,
-    force   => true,
-    target  => "${homebrew::config::installdir}/Cellar/python/${version}/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages",
-    require => Package['boxen/brews/python']
+  file {
+    "${homebrew::config::installdir}/lib/python2.7":
+      ensure => directory ;
+    "${homebrew::config::installdir}/lib/python2.7/site-packages":
+      ensure  => link,
+      force   => true,
+      target  => "${homebrew::config::installdir}/Cellar/python/${version}/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages",
+      require => Package['boxen/brews/python'] ;
   }
 
   file { "${boxen::config::envdir}/python.sh":
