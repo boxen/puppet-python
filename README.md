@@ -14,3 +14,4 @@ include python
 * `boxen`
 * `homebrew`
 * `stdlib`
+* `xquartz`
