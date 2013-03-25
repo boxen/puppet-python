@@ -21,6 +21,8 @@ define python::pip_develop (
   $virtualenv,
   $path
 ){
+  require python
+
   $venv_path = "${python::config::venv_home}/${virtualenv}"
 
   exec{ "pip install -e ${name}":

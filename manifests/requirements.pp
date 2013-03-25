@@ -16,6 +16,7 @@ define python::requirements (
   $upgrade      = false,
   $proxy        = false
 ) {
+  require python
 
   $base_env = "${python::config::venv_home}/${virtualenv}"
   $pip_env = "${base_env}/bin/pip"

@@ -42,6 +42,8 @@ define python::mkvirtualenv (
   $post_activate   = undef,
   $post_deactivate = undef
 ){
+  require python
+
   $venv_path = "${python::config::venv_home}/${name}"
   case $ensure {
     'present': {

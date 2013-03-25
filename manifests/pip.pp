@@ -29,6 +29,7 @@ define python::pip (
   $ensure = present,
   $proxy  = false
 ) {
+  require python
 
   # Parameter validation
   if ! $virtualenv {
