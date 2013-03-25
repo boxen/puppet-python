@@ -13,6 +13,7 @@
 define python::requirements (
   $requirements = $name,
   $virtualenv   = undef,
+  $upgrade      = false,
   $proxy        = false
 ) {
 
@@ -22,6 +23,11 @@ define python::requirements (
   $proxy_flag = $proxy ? {
     false    => '',
     default  => "--proxy=${proxy}",
+  }
+
+  $upgrade_flag = $upgrade ? {
+    false   => '',
+    default => 'U'
   }
 
   # This will ensure multiple python::virtualenv definitions can share the
@@ -35,8 +41,9 @@ define python::requirements (
   }
 
   exec { "python_requirements_update_${name}":
-    command => "${pip_env} install ${proxy_flag} -Ur ${requirements}",
+    command => "${pip_env} install ${proxy_flag} -${upgrade_flag}r ${requirements}",
     cwd     => $base_env,
-    require => File[$requirements]
+    require => File[$requirements],
+    timeout => 0
   }
 }

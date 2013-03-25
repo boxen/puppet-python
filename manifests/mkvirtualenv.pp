@@ -23,7 +23,10 @@
 #   [project_dir]
 #     string. Set the project directory associated with venv being created.
 #     Default: undef
-#
+#   [post_activate]
+#     Set to a puppet:///file to set a postactivate script for the env
+#   [post_deactivate]
+#     Set to a puppet:///file to set a postdeactivate script for the env
 #
 # Notes:
 #   The project does not have to exist before creating the virutal env, but if
@@ -32,10 +35,12 @@
 
 
 define python::mkvirtualenv (
-  $ensure      = present,
-  $systempkgs  = false,
-  $distribute  = true,
-  $project_dir = undef
+  $ensure          = present,
+  $systempkgs      = false,
+  $distribute      = true,
+  $project_dir     = undef,
+  $post_activate   = undef,
+  $post_deactivate = undef
 ){
   $venv_path = "${python::config::venv_home}/${name}"
   case $ensure {
@@ -58,6 +63,26 @@ define python::mkvirtualenv (
         creates  => $venv_path,
         require => [File["${boxen::config::envdir}/python_venvwrapper.sh"],
           Class["python::virtualenvwrapper"]]
+      }
+      if $post_activate {
+        file{ "python_mkenv_${name} postactivate":
+          path    => "${venv_path}/bin/postactivate",
+          ensure  => present,
+          owner   => $::luser,
+          mode    => "0755",
+          require => Exec["python_mkvirtualenv_${name}"],
+          content => $post_activate
+        }
+      }
+      if $post_deactivate {
+        file{ "python_mkenv_${name} postdeactivate":
+          path    => "${venv_path}/bin/postdeactivate",
+          ensure  => present,
+          owner   => $::luser,
+          mode    => "0755",
+          require => Exec["python_mkvirtualenv_${name}"],
+          content => $post_deactivate
+        }
       }
     }
     'absent' : {
