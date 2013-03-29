@@ -28,6 +28,6 @@ define python::pip_develop (
   exec{ "pip install -e ${name}":
     command  => "${venv_path}/bin/pip install -e ${path}/${name}",
     creates  => "${venv_path}/lib/python2.7/site-packages/${name}.egg-link",
-    require => Class["python::virtualenvwrapper"],
+    require  => Class['python::virtualenvwrapper'],
   }
 }

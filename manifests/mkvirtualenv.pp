@@ -63,25 +63,25 @@ define python::mkvirtualenv (
         provider => 'shell',
         user     => $::boxen_user,
         creates  => $venv_path,
-        require => [File["${boxen::config::envdir}/python_venvwrapper.sh"],
-          Class["python::virtualenvwrapper"]]
+        require  => [File["${boxen::config::envdir}/python_venvwrapper.sh"],
+          Class['python::virtualenvwrapper']]
       }
       if $post_activate {
         file{ "python_mkenv_${name} postactivate":
-          path    => "${venv_path}/bin/postactivate",
           ensure  => present,
+          path    => "${venv_path}/bin/postactivate",
           owner   => $::luser,
-          mode    => "0755",
+          mode    => '0755',
           require => Exec["python_mkvirtualenv_${name}"],
           content => $post_activate
         }
       }
       if $post_deactivate {
         file{ "python_mkenv_${name} postdeactivate":
-          path    => "${venv_path}/bin/postdeactivate",
           ensure  => present,
+          path    => "${venv_path}/bin/postdeactivate",
           owner   => $::luser,
-          mode    => "0755",
+          mode    => '0755',
           require => Exec["python_mkvirtualenv_${name}"],
           content => $post_deactivate
         }
