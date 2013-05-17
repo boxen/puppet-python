@@ -19,15 +19,29 @@
 
 define python::pip_develop (
   $virtualenv,
-  $path
+  $path,
+  $force = false,
+  $timeout = 300
 ){
   require python
 
   $venv_path = "${python::config::venv_home}/${virtualenv}"
 
-  exec{ "pip install -e ${name}":
-    command  => "${venv_path}/bin/pip install -e ${path}/${name}",
-    creates  => "${venv_path}/lib/python2.7/site-packages/${name}.egg-link",
-    require  => Class['python::virtualenvwrapper'],
+  case $force {
+    true:  {
+      exec{ "pip install -e ${name}":
+        command => "${venv_path}/bin/pip install -e ${path}/${name}",
+        require => Class['python::virtualenvwrapper'],
+        timeout => $timeout
+      }
+    }
+    default: {
+      exec{ "pip install -e ${name}":
+        command => "${venv_path}/bin/pip install -e ${path}/${name}",
+        creates => "${venv_path}/lib/python2.7/site-packages/${name}.egg-link",
+        require => Class['python::virtualenvwrapper'],
+        timeout => $timeout
+      }
+    }
   }
 }
