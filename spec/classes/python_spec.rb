@@ -13,12 +13,12 @@ describe 'python' do
     should include_class('boxen::config')
 
     should contain_homebrew__formula('python').with(
-      :before => 'Package[boxen/brews/python]',
+      :before => 'Package[boxen/brews/python]'
     )
     should contain_package('boxen/brews/python').with_ensure('2.7.3-boxen2')
 
     should contain_file('/opt/boxen/env.d/python.sh').with(
-      :source => 'puppet:///modules/python/python.sh',
+      :source => 'puppet:///modules/python/python.sh'
     )
   end
 end
