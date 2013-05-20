@@ -8,6 +8,7 @@ class python {
   include homebrew
   include homebrew::config
   include xquartz
+  include python::config
 
   $version = '2.7.3-boxen2'
 
