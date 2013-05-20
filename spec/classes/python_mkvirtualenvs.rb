@@ -11,7 +11,7 @@ describe 'python::mkvirtualenv' do
     should include_class('python')
 
     should contain_file('/opt/boxen/env.d/python_venvwrapper.sh').with(
-      :source => 'puppet:///modules/python/python_venvwrapper.sh',
+      :source => 'puppet:///modules/python/python_venvwrapper.sh'
     )
   end
 end
