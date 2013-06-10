@@ -8,13 +8,15 @@
 #   requirements => 'requirements/file.txt'
 #   virtualenv   => 'path/to/virtual/env'
 #   proxy        => 'proxy to use for outbound connections if needed' (optional)
+#   environment  => 'environment variables to use while running pip'  (optional)
 # }
 
 define python::requirements (
   $requirements = $name,
   $virtualenv   = undef,
   $upgrade      = false,
-  $proxy        = false
+  $proxy        = false,
+  $environment  = undef      
 ) {
   require python
 
@@ -42,9 +44,10 @@ define python::requirements (
   }
 
   exec { "python_requirements_update_${name}":
-    command => "${pip_env} install ${proxy_flag} -${upgrade_flag}r ${requirements}",
-    cwd     => $base_env,
-    require => File[$requirements],
-    timeout => 0
+    command     => "${pip_env} install ${proxy_flag} -${upgrade_flag}r ${requirements}",
+    cwd         => $base_env,
+    require     => File[$requirements],
+    timeout     => 0,
+    environment => $environment
   }
 }
