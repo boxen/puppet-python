@@ -16,7 +16,7 @@ define python::requirements (
   $virtualenv   = undef,
   $upgrade      = false,
   $proxy        = false,
-  $environment  = undef      
+  $environment  = undef
 ) {
   require python
 
