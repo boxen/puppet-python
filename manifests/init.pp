@@ -22,7 +22,7 @@ class python {
   }
 
   file {
-    "${homebrew::config::installdir}/lib/python2.7":
+    ["${homebrew::config::installdir}/lib", "${homebrew::config::installdir}/lib/python2.7"]:
       ensure => directory ;
     "${homebrew::config::installdir}/lib/python2.7/site-packages":
       ensure  => link,
