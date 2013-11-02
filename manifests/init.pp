@@ -31,7 +31,12 @@ class python {
       require => Package['boxen/brews/python'] ;
   }
 
+  boxen::env_script { 'python':
+    priority => 'lower',
+    source   => 'puppet:///modules/python/python.sh',
+  }
+
   file { "${boxen::config::envdir}/python.sh":
-    source  => 'puppet:///modules/python/python.sh'
+    ensure => absent,
   }
 }
