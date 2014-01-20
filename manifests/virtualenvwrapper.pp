@@ -7,7 +7,7 @@
 class python::virtualenvwrapper {
   include python
 
-  $version = '3.7'
+  $version = '4.2'
 
   # Install virtualenvwrapper
   python::pip {

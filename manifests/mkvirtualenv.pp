@@ -41,7 +41,7 @@ define python::mkvirtualenv (
   $project_dir     = undef,
   $post_activate   = undef,
   $post_deactivate = undef
-){
+  ){
   require python
 
   $venv_path = "${python::config::venv_home}/${name}"
@@ -57,38 +57,38 @@ define python::mkvirtualenv (
         default => ''
       }
 
-      exec{ "python_mkvirtualenv_${name}":
+      exec { "python_mkvirtualenv_${name}":
         command  => ". ${boxen::config::home}/env.sh && \
           mkvirtualenv ${mkvenv_proj} ${name} ${mkvenv_syspkg}",
         provider => 'shell',
         user     => $::boxen_user,
         creates  => $venv_path,
-        require  => [File["${boxen::config::envdir}/python_venvwrapper.sh"],
-          Class['python::virtualenvwrapper']]
+        require  => [ File["${boxen::config::envdir}/python_venvwrapper.sh"],
+                      Class['python::virtualenvwrapper' ]]
       }
       if $post_activate {
-        file{ "python_mkenv_${name} postactivate":
+        file { "python_mkenv_${name} postactivate":
           ensure  => present,
           path    => "${venv_path}/bin/postactivate",
           owner   => $::luser,
           mode    => '0755',
-          require => Exec["python_mkvirtualenv_${name}"],
+          require => Exec[ "python_mkvirtualenv_${name}" ],
           content => $post_activate
         }
       }
       if $post_deactivate {
-        file{ "python_mkenv_${name} postdeactivate":
+        file { "python_mkenv_${name} postdeactivate":
           ensure  => present,
           path    => "${venv_path}/bin/postdeactivate",
           owner   => $::luser,
           mode    => '0755',
-          require => Exec["python_mkvirtualenv_${name}"],
+          require => Exec[ "python_mkvirtualenv_${name}" ],
           content => $post_deactivate
         }
       }
     }
     'absent' : {
-      if !defined(File[$venv_path]){
+      if ! defined( File[ $venv_path ] ){
         file { $venv_path:
           ensure  => absent,
           recurse => true,

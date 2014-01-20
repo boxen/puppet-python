@@ -35,7 +35,7 @@ define python::requirements (
 
   # This will ensure multiple python::virtualenv definitions can share the
   # the same requirements file.
-  if !defined(File[$requirements]) {
+  if ! defined(File[$requirements]) {
     file { $requirements:
       ensure  => present,
       replace => false,
