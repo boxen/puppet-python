@@ -3,6 +3,7 @@
 # Usage:
 #
 #     include python
+
 class python {
   include boxen::config
   include homebrew
