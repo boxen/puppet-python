@@ -1,6 +1,6 @@
 # == Define: python::pip
 #
-# Installs and manages packages from pip.
+# Installs and manages packages from pip for virtualenvs.
 #
 # === Parameters
 #
