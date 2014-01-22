@@ -20,13 +20,4 @@ class python {
     ensure  => $version,
     require => Class['xquartz']
   }
-
-  boxen::env_script { 'python':
-    priority => 'lower',
-    source   => 'puppet:///modules/python/python.sh',
-  }
-
-  file { "${boxen::config::envdir}/python.sh":
-    ensure => absent,
-  }
 }
