@@ -17,6 +17,9 @@ describe 'python' do
     should contain_homebrew__formula('python').with(
       :before => 'Package[boxen/brews/python]'
     )
-    should contain_package('boxen/brews/python').with_ensure('2.7.6-boxen3')
+
+    should contain_package('boxen/brews/python').with({
+      :ensure => '2.7.6-boxen3'
+    })
   end
 end
