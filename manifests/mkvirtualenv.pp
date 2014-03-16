@@ -63,8 +63,7 @@ define python::mkvirtualenv (
         provider => 'shell',
         user     => $::boxen_user,
         creates  => $venv_path,
-        require  => [File["${boxen::config::envdir}/python_venvwrapper.sh"],
-          Class['python::virtualenvwrapper']]
+        require  => Class['python::virtualenvwrapper'],
       }
       if $post_activate {
         file{ "python_mkenv_${name} postactivate":

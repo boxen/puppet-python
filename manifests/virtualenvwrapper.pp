@@ -17,7 +17,13 @@ class python::virtualenvwrapper {
   }
 
   file { "${boxen::config::envdir}/python_venvwrapper.sh":
-    content => template('python/python_venvwrapper.sh.erb')
+    ensure => absent,
   }
-  # add to the boxen env calls to wrapper.sh file
+
+  ->
+  boxen::env_script { 'python_virtualenvwrapper':
+    ensure   => present,
+    content  => template('python/python_venvwrapper.sh.erb'),
+    priority => 'lower',
+  }
 }
