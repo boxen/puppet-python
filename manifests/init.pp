@@ -30,13 +30,4 @@ class python {
       target  => "${homebrew::config::installdir}/Cellar/python/${version}/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages",
       require => Package['boxen/brews/python'] ;
   }
-
-  boxen::env_script { 'python':
-    priority => 'lower',
-    source   => 'puppet:///modules/python/python.sh',
-  }
-
-  file { "${boxen::config::envdir}/python.sh":
-    ensure => absent,
-  }
 }
