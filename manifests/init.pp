@@ -22,8 +22,8 @@ class python {
   }
 
   boxen::env_script { 'python':
-    priority => 'lower',
-    source   => 'puppet:///modules/python/python.sh',
+    ensure   => 'absent',
+    content  => '',
   }
 
   file { "${boxen::config::envdir}/python.sh":
