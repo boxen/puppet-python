@@ -23,7 +23,7 @@ class python {
 
   boxen::env_script { 'python':
     ensure   => 'absent',
-    content  => '',
+    content  => '# noop',
   }
 
   file { "${boxen::config::envdir}/python.sh":
