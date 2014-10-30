@@ -28,7 +28,8 @@ define python::pip (
   $virtualenv,
   $ensure = present,
   $proxy  = false,
-  $allow_external = false
+  $allow_external = false,
+  $allow_unverified = false,
 ) {
   require python
 
@@ -52,10 +53,15 @@ define python::pip (
     default => "--allow-external ${name}",
   }
 
+  $allow_unverified_flag = $allow_unverified ? {
+    false   => '',
+    default => "--allow-unverified ${name}",
+  }
+
   case $ensure {
     present: {
       exec { "pip_install_${name}":
-        command => "${virtualenv}/bin/pip install ${proxy_flag} ${allow_external_flag} ${name}",
+        command => "${virtualenv}/bin/pip install ${proxy_flag} ${allow_external_flag} ${allow_unverified_flag} ${name}",
         unless  => "${virtualenv}/bin/pip freeze | grep -i -e ${grep_regex}",
       }
     }
