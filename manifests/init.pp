@@ -10,7 +10,7 @@ class python {
   include xquartz
   include python::config
 
-  $version = '2.7.8-boxen1'
+  $version = '2.7.9-boxen1'
 
   homebrew::formula { 'python':
     before => Package['boxen/brews/python']
