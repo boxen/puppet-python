@@ -3,7 +3,7 @@
 class python::config {
   include boxen::config
 
-  $venv_home = "${boxen::config::datadir}/virturalenvs"
+  $venv_home = "${boxen::config::datadir}/virtualenvs"
   # The "global" scope for python modules in boxen
   $global_venv = $homebrew::config::installdir
 }
