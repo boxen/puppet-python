@@ -1,2 +1,8 @@
-source $BOXEN_HOME/homebrew/bin/virtualenvwrapper.sh
+if [ -d "$BOXEN_HOME/homebrew" ] 
+then
+  BREW_HOME=$BOXEN_HOME/homebrew/bin
+else
+  BREW_HOME=/usr/local/bin
+fi
+source $BREW_HOME/virtualenvwrapper.sh
 export WORKON_HOME=<%= scope.lookupvar "python::config::venv_home" %>
